@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAJEED | Luxury Retail Technology</title>
+    <style>
+        /* --- 1. FOUNDATION & TYPOGRAPHY --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+        :root {
+            --bg-obsidian: #050505;
+            --bg-charcoal: #0f0f0f;
+            --bg-panel: rgba(255, 255, 255, 0.02);
+            --accent-gold: #C5A059;
+            --accent-gold-dim: #8a6e3e;
+            --text-platinum: #E5E5E5;
+            --text-smoke: #888888;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --easing-luxury: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-platinum);
+            font-family: var(--font-sans);
+            font-weight: 300;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Noise Texture Overlay for Tactile Feel */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* --- 2. HERO SECTION --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #050505 70%);
+            padding: 2rem;
+        }
+
+        /* Abstract Architectural Light */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(197, 160, 89, 0.2), transparent);
+            z-index: 0;
+        }
+
+        .brand-eyebrow {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s var(--easing-luxury) forwards 0.2s;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            color: #fff;
+            opacity: 0;
+            animation: fadeUp 1.2s var(--easing-luxury) forwards 0.4s;
+        }
+
+        h1 i {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--accent-gold);
+        }
+
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text-smoke);
+            max-width: 500px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 1.2s var(--easing-luxury) forwards 0.6s;
+        }
+
+        /* --- 3. NAVIGATION --- */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.5s ease;
+        }
+
+        .tab-link {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-smoke);
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 0.5rem;
+            transition: color 0.4s var(--easing-luxury);
+        }
+
+        .tab-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--accent-gold);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s var(--easing-luxury);
+        }
+
+        .tab-link:hover, .tab-link.active {
+            color: #fff;
+        }
+
+        .tab-link.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* --- 4. CONTENT AREA --- */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            min-height: 80vh;
+        }
+
+        .tab-content {
+            display: none;
+            animation: contentFade 0.8s var(--easing-luxury);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes contentFade {
+            from { opacity: 0; transform: translateY(30px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-desc {
+            color: var(--text-smoke);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- 5. CARDS (The "Glass" Look) --- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3.5rem 2.5rem;
+            position: relative;
+            transition: all 0.6s var(--easing-luxury);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Hover: Border glow and slight lift */
+        .card:hover {
+            border-color: rgba(197, 160, 89, 0.3);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-num {
+            font-family: var(--font-serif);
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.03); /* Very subtle watermark */
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            line-height: 1;
+            font-style: italic;
+            pointer-events: none;
+        }
+
+        .card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: #fff;
+            font-weight: 400;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Decorative underline for H3 */
+        .card h3::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            margin-top: 8px;
+            transition: width 0.6s var(--easing-luxury);
+        }
+
+        .card:hover h3::after {
+            width: 60px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-smoke);
+            font-weight: 300;
+            max-width: 90%;
+            transition: color 0.4s ease;
+        }
+
+        .card:hover p {
+            color: #d1d1d1;
+        }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #444;
+        }
+
+        /* Animation Utilities */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tabs-nav { gap: 1.5rem; padding: 2rem 1rem; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .card { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <header class="hero">
+        <span class="brand-eyebrow">Bespoke IT Governance &bull; Middle East</span>
+        <h1>Invisible Infrastructure.<br><i>Tangible Excellence.</i></h1>
+        <p class="hero-sub">Precision retail tech for the world's most exclusive houses.</p>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="tabs-nav">
+        <div class="tab-link active" onclick="openTab(event, 'strategist')">01. The Strategist</div>
+        <div class="tab-link" onclick="openTab(event, 'integrity')">02. The Integrity Audit</div>
+        <div class="tab-link" onclick="openTab(event, 'mobilization')">03. The Architect</div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
+        
+        <!-- TAB 1: STRATEGIST -->
+        <div id="strategist" class="tab-content active">
+            <div class="section-intro">
+                <h2 class="section-title">Operational Excellence</h2>
+                <p class="section-desc">Maximizing the ROI of luxury technology investments through human-centric adoption strategies.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <span class="card-num">01</span>
+                    <h3>The Adoption Bridge</h3>
+                    <p>Closing the gap between investment and reality. We coach teams on the "WIIFM" narrative and mobilize Digital Ambassadors to ensure technology empowers, not hinders, the client journey.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">02</span>
+                    <h3>Day 1 Shadowing</h3>
+                    <p>High-stakes launch support. We provide on-floor confidence coaching and real-time friction removal during Go-Live, ensuring your staff feels secure when it matters most.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">03</span>
+                    <h3>Cultural Governance</h3>
+                    <p>Elevating IT from support to strategy. We align store operations with your long-term technical roadmap, making technology a competitive advantage, not an afterthought.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: INTEGRITY -->
+        <div id="integrity" class="tab-content">
+            <div class="section-intro">
+                <h2 class="section-title">Fiscal Guardrails</h2>
+                <p class="section-desc">Forensic governance of technical expenditure to identify leakage and optimize annual operational costs.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <span class="card-num">01</span>
+                    <h3>Leakage Forensic</h3>
+                    <p>Identifying "Ghost Assets" and inactive subscriptions. We recover wasted expenditure and optimize vendor contracts to ensure every dirham is justified.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">02</span>
+                    <h3>Redundancy Validation</h3>
+                    <p>Auditing Disaster Recovery and network architecture. We eliminate false redundancies while ensuring actual resilience against the region's unique challenges.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">03</span>
+                    <h3>Preventive ROI</h3>
+                    <p>Applying trend analysis to prevent incidents before they impact the bottom line. Proactive problem management saves more than reactive repairs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: ARCHITECT -->
+        <div id="mobilization" class="tab-content">
+            <div class="section-intro">
+                <h2 class="section-title">Rapid Mobilization</h2>
+                <p class="section-desc">Executing enterprise-grade infrastructure in challenging environments with precision and zero lead time.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <span class="card-num">01</span>
+                    <h3>Off-Grid Connectivity</h3>
+                    <p>High-performance bonded networks for remote or temporary sites. Reliable, secure, and ready within hours, anywhere in the Emirates.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">02</span>
+                    <h3>Stealth Infrastructure</h3>
+                    <p>"White-glove" aesthetic network design. Technology that disappears into the luxury environment, maintaining the visual sanctity of high-end retail and palaces.</p>
+                </div>
+                <div class="card">
+                    <span class="card-num">03</span>
+                    <h3>The 08:00 AM Promise</h3>
+                    <p>Overnight mobilization for flagships and pop-ups. Systems are stabilized, stress-tested, and peak-ready before the first VIP walkthrough.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MAJEED INFORMATION TECHNOLOGY &bull; DUBAI, UAE</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Hide all content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+                // Slight delay to allow fade out, though CSS handles display:none mostly
+            }
+
+            // Remove active class from nav
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show current and add active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
